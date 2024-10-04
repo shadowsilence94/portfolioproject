@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Htut Ko Ko Portfolio</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+      }
+      .dashboard-sidebar {
+        height: 100vh;
+        background-color: #343a40;
+        color: #fff;
+        padding: 20px;
+      }
+      .dashboard-sidebar a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        margin: 15px 0;
+      }
+      .dashboard-content {
+        padding: 20px;
+      }
+      .logout-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 dashboard-sidebar">
+          <h2>Admin Dashboard</h2>
+          <a href="#skillsSection">Manage Skills</a>
+          <a href="#projectsSection">Manage Projects</a>
+          <a href="#contactSection">Manage Contact Info</a>
+          <button class="btn btn-danger logout-btn">Logout</button>
+        </div>
+
+        <!-- Main Dashboard Content -->
+        <div class="col-md-10 dashboard-content">
+          <!-- Manage Skills Section -->
+          <section id="skillsSection">
+            <h3>Manage Skills</h3>
+            <form id="skillsForm">
+              <div class="form-group">
+                <label for="skillName">Skill Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="skillName"
+                  placeholder="Enter new skill"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Add Skill</button>
+            </form>
+            <ul id="skillsList" class="mt-4 list-group">
+              <!-- Dynamically added skills will appear here -->
+            </ul>
+          </section>
+
+          <!-- Manage Projects Section -->
+          <section id="projectsSection" class="mt-5">
+            <h3>Manage Projects</h3>
+            <form id="projectsForm">
+              <div class="form-group">
+                <label for="projectTitle">Project Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="projectTitle"
+                  placeholder="Enter project title"
+                />
+              </div>
+              <div class="form-group">
+                <label for="projectLink">Project Link</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="projectLink"
+                  placeholder="Enter project URL"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Add Project</button>
+            </form>
+            <ul id="projectsList" class="mt-4 list-group">
+              <!-- Dynamically added projects will appear here -->
+            </ul>
+          </section>
+
+          <!-- Manage Contact Info Section -->
+          <section id="contactSection" class="mt-5">
+            <h3>Manage Contact Info</h3>
+            <form id="contactForm">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Enter email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone"
+                  placeholder="Enter phone number"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Update Contact Info
+              </button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Handling skills form
+      const skillsForm = document.getElementById("skillsForm");
+      const skillsList = document.getElementById("skillsList");
+
+      skillsForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const skillName = document.getElementById("skillName").value;
+        if (skillName) {
+          const listItem = document.createElement("li");
+          listItem.className = "list-group-item";
+          listItem.textContent = skillName;
+          skillsList.appendChild(listItem);
+          document.getElementById("skillName").value = "";
+        }
+      });
+
+      // Handling projects form
+      const projectsForm = document.getElementById("projectsForm");
+      const projectsList = document.getElementById("projectsList");
+
+      projectsForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const projectTitle = document.getElementById("projectTitle").value;
+        const projectLink = document.getElementById("projectLink").value;
+        if (projectTitle && projectLink) {
+          const listItem = document.createElement("li");
+          listItem.className = "list-group-item";
+          listItem.innerHTML = `<strong>${projectTitle}</strong> - <a href="${projectLink}" target="_blank">${projectLink}</a>`;
+          projectsList.appendChild(listItem);
+          document.getElementById("projectTitle").value = "";
+          document.getElementById("projectLink").value = "";
+        }
+      });
+
+      // Handling contact form
+      const contactForm = document.getElementById("contactForm");
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        if (email && phone) {
+          alert(`Contact info updated: \nEmail: ${email}\nPhone: ${phone}`);
+        }
+      });
+    </script>
+  </body>
+</html>
